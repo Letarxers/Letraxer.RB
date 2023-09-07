@@ -1,174 +1,60 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Camera = workspace.CurrentCamera
 
-local Window = Rayfield:CreateWindow({
-   Name = "[LSD] - Hub By Letraxer's",
-   LoadingTitle = "[LSD] - Hub By Letraxer's",
-   LoadingSubtitle = "By Letraxer's",
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = nil, 
-      FileName = "[LSD]"
-   },
-   KeySystem = true, 
-   KeySettings = {
-      Title = "[LSD] - Hub By Letraxer's",
-      Subtitle = "Key System",
-      Note = "For Letraxer's",
-      FileName = "Key",
-      SaveKey = true, 
-      GrabKeyFromSite = false,
-      Key = {"LSD"} 
-   }
-})
+local SPEED_MULTIPLIER = 30
+local JUMP_POWER = 60
+local JUMP_GAP = 0.3
 
-local function PlaySoundFromURL(url)
-    local sound = Instance.new("Sound")
-    sound.SoundId = url
-    sound.Parent = game.Workspace
-    sound:Play()
+local character = game.Players.LocalPlayer.Character
+
+for i,v in ipairs(character:GetDescendants()) do
+   if v:IsA("BasePart") then
+       v.CanCollide = false
+   end
 end
 
-Rayfield:Notify({
-    Title = "Create For Letraxer's",
-    Content = "[LSD] - HUB For ME",
-    Duration = 6.5,
-    Image = 4483362458,
-    Actions = {
-        Ignore = {
-            Name = "Nya?",
-            Callback = function()
-                local soundURL = "https://www.roblox.com/asset/?id=5039052146" 
-                PlaySoundFromURL(soundURL)
-            end
-        },
-    },
-})
+local ball = character.HumanoidRootPart
+ball.Shape = Enum.PartType.Ball
+ball.Size = Vector3.new(5,5,5)
+local humanoid = character:WaitForChild("Humanoid")
+local params = RaycastParams.new()
+params.FilterType = Enum.RaycastFilterType.Blacklist
+params.FilterDescendantsInstances = {character}
 
-local Tab = Window:CreateTab("Humanoid", 4483362458) 
--- WalkSpeed
-local Input = Tab:CreateInput({
-   Name = "WalkSpeed",
-   PlaceholderText = "Value",
-   RemoveTextAfterFocusLost = false,
-   Callback = function(text)
-   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = text
-   end,
-})
--- JumpPower
-local Input = Tab:CreateInput({
-    Name = "JumpPower",
-    PlaceholderText = "Value",
-    RemoveTextAfterFocusLost = false,
-    Callback = function(text)
-    game.Players.LocalPlayer.Character.Humanoid.JumpPower = text
-    end,
- })
- -- HipHeight
-local Input = Tab:CreateInput({
-    Name = "HipHeight",
-    PlaceholderText = "Value",
-    RemoveTextAfterFocusLost = false,
-    Callback = function(text)
-    game.Players.LocalPlayer.Character.Humanoid.HipHeight = text
-    end,
- })
-  -- Health
-local Input = Tab:CreateInput({
-    Name = "Health",
-    PlaceholderText = "Value",
-    RemoveTextAfterFocusLost = false,
-    Callback = function(text)
-    game.Players.LocalPlayer.Character.Humanoid.Health = text
-    end,
- })
- local Tab = Window:CreateTab("+18", 4483362458) 
- local Section = Tab:CreateSection("NOT FE")
--- Shirt Remover
-local Input = Tab:CreateInput({
-    Name = "ShirtRemover",
-    PlaceholderText = "NickName",
-    RemoveTextAfterFocusLost = false,
-    Callback = function(PlayerName)
-    game.Workspace:FindFirstChild(PlayerName).Shirt:Destroy()
-    end,
- })
- -- Pants Remover
-local Input = Tab:CreateInput({
-    Name = "PantsRemover",
-    PlaceholderText = "NickName",
-    RemoveTextAfterFocusLost = false,
-    Callback = function(PlayerName)
-    game.Workspace:FindFirstChild(PlayerName).Pants:Destroy()
-    end,
- })
- local Tab = Window:CreateTab("Univerasal", 4483362458) 
--- Walk On Wall
-local Button = Tab:CreateButton({
-   Name = "Walk On Wall",
-   Callback = function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Letarxers/Letraxer.RB/main/Walk%20On%20Wall"))()
-   end,
-})
-local Button = Tab:CreateButton({
-    Name = "Hamster Ball",
-    Callback = function()
-        local UserInputService = game:GetService("UserInputService")
-        local RunService = game:GetService("RunService")
-        local Camera = workspace.CurrentCamera
-        
-        local SPEED_MULTIPLIER = 30
-        local JUMP_POWER = 60
-        local JUMP_GAP = 0.3
-        
-        local character = game.Players.LocalPlayer.Character
-        
-        for i,v in ipairs(character:GetDescendants()) do
-           if v:IsA("BasePart") then
-               v.CanCollide = false
-           end
-        end
-        
-        local ball = character.HumanoidRootPart
-        ball.Shape = Enum.PartType.Ball
-        ball.Size = Vector3.new(5,5,5)
-        local humanoid = character:WaitForChild("Humanoid")
-        local params = RaycastParams.new()
-        params.FilterType = Enum.RaycastFilterType.Blacklist
-        params.FilterDescendantsInstances = {character}
-        
-        local tc = RunService.RenderStepped:Connect(function(delta)
-           ball.CanCollide = true
-           humanoid.PlatformStand = true
-        if UserInputService:GetFocusedTextBox() then return end
-        if UserInputService:IsKeyDown("W") then
-        ball.RotVelocity -= Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
-        end
-        if UserInputService:IsKeyDown("A") then
-        ball.RotVelocity -= Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
-        end
-        if UserInputService:IsKeyDown("S") then
-        ball.RotVelocity += Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
-        end
-        if UserInputService:IsKeyDown("D") then
-        ball.RotVelocity += Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
-        end
-        end)
-        
-        UserInputService.JumpRequest:Connect(function()
-        local result = workspace:Raycast(
-        ball.Position,
-        Vector3.new(
-        0,
-        -((ball.Size.Y/2)+JUMP_GAP),
-        0
-        ),
-        params
-        )
-        if result then
-        ball.Velocity = ball.Velocity + Vector3.new(0,JUMP_POWER,0)
-        end
-        end)
-        
-        Camera.CameraSubject = ball
-        humanoid.Died:Connect(function() tc:Disconnect() end)    end,
- })
+local tc = RunService.RenderStepped:Connect(function(delta)
+   ball.CanCollide = true
+   humanoid.PlatformStand = true
+if UserInputService:GetFocusedTextBox() then return end
+if UserInputService:IsKeyDown("W") then
+ball.RotVelocity -= Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
+end
+if UserInputService:IsKeyDown("A") then
+ball.RotVelocity -= Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
+end
+if UserInputService:IsKeyDown("S") then
+ball.RotVelocity += Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
+end
+if UserInputService:IsKeyDown("D") then
+ball.RotVelocity += Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
+end
+--ball.RotVelocity = ball.RotVelocity - Vector3.new(0,ball.RotVelocity.Y/50,0)
+end)
+
+UserInputService.JumpRequest:Connect(function()
+local result = workspace:Raycast(
+ball.Position,
+Vector3.new(
+0,
+-((ball.Size.Y/2)+JUMP_GAP),
+0
+),
+params
+)
+if result then
+ball.Velocity = ball.Velocity + Vector3.new(0,JUMP_POWER,0)
+end
+end)
+
+Camera.CameraSubject = ball
+humanoid.Died:Connect(function() tc:Disconnect() end)
