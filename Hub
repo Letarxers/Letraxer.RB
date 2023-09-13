@@ -1,0 +1,196 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "[LSD] - Hub By Letraxer's",
+   LoadingTitle = "[LSD] - Hub By Letraxer's",
+   LoadingSubtitle = "By Letraxer's",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, 
+      FileName = "[LSD]"
+   },
+   KeySystem = true, 
+   KeySettings = {
+      Title = "[LSD] - Hub By Letraxer's",
+      Subtitle = "Key System",
+      Note = "For Letraxer's",
+      FileName = "Key",
+      SaveKey = true, 
+      GrabKeyFromSite = false,
+      Key = {"LSD"} 
+   }
+})
+
+local function PlaySoundFromURL(url)
+    local sound = Instance.new("Sound")
+    sound.SoundId = url
+    sound.Parent = game.Workspace
+    sound:Play()
+end
+
+Rayfield:Notify({
+    Title = "Create For Letraxer's",
+    Content = "[LSD] - HUB For ME",
+    Duration = 6.5,
+    Image = 4483362458,
+    Actions = {
+        Ignore = {
+            Name = "Nya?",
+            Callback = function()
+                local soundURL = "https://www.roblox.com/asset/?id=5039052146" 
+                PlaySoundFromURL(soundURL)
+            end
+        },
+    },
+})
+  -- TAB - Humanoid
+local Tab = Window:CreateTab("Humanoid", 4483362458) 
+-- Teleport
+local Button = Tab:CreateButton({
+    Name = "TP GUI",
+    Callback = function()
+        for i,v in next, game.CoreGui:GetChildren() do
+            if v.Name == "ScreenGui" and v.ImageButton then
+                v:Destroy()
+            end
+        end
+        local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/sannin9000/Ui-Libraries/main/uwuware", true))()
+        local Players = {}
+        for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+            if v:IsA"Model" and game.Players:FindFirstChild(v.Name) then
+                table.insert(Players, (tostring(v.Name)))
+            end
+        end
+        local Window = Library:CreateWindow"Teleport Player"
+        local Players = Window:AddList({text = "Select Player", flag = "list", values = Players, callback = function(selected)
+            getgenv().selectedPlayer = selected
+        end})
+        Window:AddButton({text = "TP Player", flag = "button", callback = function()
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players:FindFirstChild(getgenv().selectedPlayer).Character:WaitForChild("HumanoidRootPart").CFrame
+        end})
+        Window:AddLabel({text = "By Letraxer's"})
+        Library:Init()
+        end,
+ })
+-- WalkSpeed
+local Input = Tab:CreateInput({
+   Name = "WalkSpeed",
+   PlaceholderText = "Value",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(text)
+   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = text
+   end,
+})
+-- JumpPower
+local Input = Tab:CreateInput({
+    Name = "JumpPower",
+    PlaceholderText = "Value",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(text)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = text
+    end,
+ })
+ -- HipHeight
+local Input = Tab:CreateInput({
+    Name = "HipHeight",
+    PlaceholderText = "Value",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(text)
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = text
+    end,
+ })
+  -- Health
+local Input = Tab:CreateInput({
+    Name = "Health",
+    PlaceholderText = "Value",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(text)
+    game.Players.LocalPlayer.Character.Humanoid.Health = text
+    end,
+ })
+   -- TAB - NSFW
+ local Tab = Window:CreateTab("+18", 4483362458) 
+ -- Bang GUI
+ local Button = Tab:CreateButton({
+    Name = "Bang GUI",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Letarxers/Letraxer.RB/main/Bang.LSD', true))()
+    end,
+ })
+
+ local Section = Tab:CreateSection("NOT FE")
+-- Shirt Remover
+local Input = Tab:CreateInput({
+    Name = "ShirtRemover",
+    PlaceholderText = "NickName",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(PlayerName)
+    game.Workspace:FindFirstChild(PlayerName).Shirt:Destroy()
+    end,
+ })
+ -- Pants Remover
+local Input = Tab:CreateInput({
+    Name = "PantsRemover",
+    PlaceholderText = "NickName",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(PlayerName)
+    game.Workspace:FindFirstChild(PlayerName).Pants:Destroy()
+    end,
+ })
+  -- TAB - Universal
+ local Tab = Window:CreateTab("Univerasal", 4483362458) 
+-- Walk On Wall
+local Button = Tab:CreateButton({
+   Name = "Walk On Wall",
+   Callback = function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Letarxers/Letraxer.RB/main/Walk%20On%20Wall"))()
+   end,
+})
+-- Hamster Ball
+local Button = Tab:CreateButton({
+    Name = "Hamster Ball",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Letarxers/Letraxer.RB/main/Hamster%20Ball"))()
+    end,
+ })
+ -- TAB - CHAT
+ local Tab = Window:CreateTab("Chat", 4483362458) 
+ -- Faith's Bypasser
+local Button = Tab:CreateButton({
+    Name = "Faith's Bypasser",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Suno0526/Faith/main/module.lua', true))()
+    end,
+ })
+ -- TAB - HACK
+ local Tab = Window:CreateTab("Create Hack?", 4483362458) 
+ -- DarkDex ByPass
+ local Button = Tab:CreateButton({
+    Name = "Dark Dex - ByPass",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+        end,
+ })
+ -- SimpleSpy
+ local Button = Tab:CreateButton({
+    Name = "SimpleSpy",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
+    end,
+ })
+-- TAB - Admin / HUB / GUI
+local Tab = Window:CreateTab("Admin / HUB / GUI", 4483362458) 
+ -- CMD-X
+ local Button = Tab:CreateButton({
+    Name = "CMD-X",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source", true))()
+        end,
+ })
+-- Nemeless
+ local Button = Tab:CreateButton({
+    Name = "Nemeless",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))();
+            end,
+ })
